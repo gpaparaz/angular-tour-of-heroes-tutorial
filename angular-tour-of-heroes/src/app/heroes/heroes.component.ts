@@ -19,8 +19,13 @@ export class HeroesComponent {
   constructor(private heroService: HeroService) {}
 
   // method to retrieve the heroes from the service.
+  // waits for the Observable to emit the array of heroes,
+  // which could happen now or several minutes from now.
+  // The subscribe() method passes the emitted array to the callback,
+  // which sets the component's heroes property.
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes()
+        .subscribe(heroes => this.heroes = heroes);
   }
 
 // While you could call getHeroes() in the constructor, that's not the best practice.
